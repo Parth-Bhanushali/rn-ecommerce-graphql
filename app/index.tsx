@@ -1,7 +1,10 @@
-import {FlatList, Text, View, StyleSheet, Image, ActivityIndicator} from 'react-native';
+import React from 'react';
+import {FlatList, Text, View, StyleSheet, Image, ActivityIndicator, Alert} from 'react-native';
 import { useQuery } from '@apollo/client';
 import { COLLECTIONS_QUERY } from '../network/query'
 import { Colors } from '@/constants/Colors';
+import { useNavigation } from 'expo-router';
+import HeaderHome from '@/components/HeaderHome'
 
 const CollectionItem = ({ collection, onPress } : any) => {
   const { node } = collection
@@ -53,6 +56,17 @@ const CollectionItem = ({ collection, onPress } : any) => {
 
 export default function Index() {
   const {data, loading, error} = useQuery(COLLECTIONS_QUERY);
+  const navigation = useNavigation();
+
+  function onMenuPress () {
+    Alert.alert('Alert', "This has not been implemented.")
+  }
+
+  React.useEffect(() => {
+    navigation.setOptions({
+      header: () => <HeaderHome title="E-commerce App" onBackPress={() => onMenuPress()} />,
+    });
+  }, [])
 
   if (loading) {
     return (
