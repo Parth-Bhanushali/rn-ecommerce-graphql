@@ -21,7 +21,7 @@ export const COLLECTIONS_QUERY = gql`
                   }
                 }
               }
-              variants(first: 3) {
+              variants(first: 5) {
                 edges {
                   cursor
                   node {
