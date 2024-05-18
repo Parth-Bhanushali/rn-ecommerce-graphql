@@ -11,18 +11,25 @@ export const COLLECTIONS_QUERY = gql`
         products(first: 2) {
           edges {
             node {
+              id
               title
               description
-              images(first: 1) {
+              images(first: 3) {
                 edges {
                   node {
                     url
                   }
                 }
               }
-              variants(first: 1) {
+              variants(first: 3) {
                 edges {
+                  cursor
                   node {
+                    id
+                    title
+                    image {
+                      url
+                    }
                     price {
                       amount
                       currencyCode
