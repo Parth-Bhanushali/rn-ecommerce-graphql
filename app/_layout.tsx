@@ -6,7 +6,8 @@ export default function RootLayout() {
   return (
     <ApolloProvider client={client}>
       <Stack>
-        <Stack.Screen name="index" options={{ headerTitle: "Home" }} />
+        <Stack.Screen name="index" />
+        <Stack.Screen name="ProductPage" options={{ headerTitle: "Product details" }} />
       </Stack>
     </ApolloProvider>
   );

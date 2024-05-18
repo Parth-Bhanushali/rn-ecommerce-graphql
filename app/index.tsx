@@ -1,12 +1,12 @@
 import React from 'react';
-import {FlatList, Text, View, StyleSheet, Image, ActivityIndicator, Alert} from 'react-native';
+import {FlatList, Text, View, StyleSheet, Image, ActivityIndicator, Alert, TouchableOpacity} from 'react-native';
 import { useQuery } from '@apollo/client';
 import { COLLECTIONS_QUERY } from '../network/query'
 import { Colors } from '@/constants/Colors';
-import { useNavigation } from 'expo-router';
+import { useNavigation, router } from 'expo-router';
 import HeaderHome from '@/components/HeaderHome'
 
-const CollectionItem = ({ collection, onPress } : any) => {
+const CollectionItem = ({ collection, onProductPress } : any) => {
   const { node } = collection
   const { title, description, handle } = node
   const products = node.products.edges
@@ -34,7 +34,12 @@ const CollectionItem = ({ collection, onPress } : any) => {
             const productPriceText = "$" + " " + productPrice + " " + productPriceUnit
 
             return (
-              <View key={index} style={{ flex: 1, gap: 8 }}>
+              <TouchableOpacity 
+                activeOpacity={0.75} 
+                key={index} 
+                onPress={() => onProductPress(item, index)}
+                style={{ flex: 1, gap: 8 }}
+              >
                 <Image 
                   resizeMethod='resize'
                   source={{ uri: productImage }}
@@ -45,7 +50,7 @@ const CollectionItem = ({ collection, onPress } : any) => {
                   <Text style={{ fontSize: 13 }}>{productTitle}</Text>
                   <Text style={{ fontSize: 15, fontWeight: '600' }}>{productPriceText}</Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             )
           })
         }
@@ -60,6 +65,10 @@ export default function Index() {
 
   function onMenuPress () {
     Alert.alert('Alert', "This has not been implemented.")
+  }
+
+  function onProductPress (product: any, index: number) {
+    router.navigate({pathname: "ProductPage", params: product.node})
   }
 
   React.useEffect(() => {
@@ -108,7 +117,7 @@ export default function Index() {
       renderItem={({ item, index }) => (
         <CollectionItem
           collection={item}
-          onPress={() => {}}
+          onProductPress={onProductPress}
         />
       )}
       keyExtractor={(item, index) => index + ""}
