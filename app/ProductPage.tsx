@@ -2,9 +2,10 @@ import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, TouchableOpacit
 import React from 'react'
 import { useLocalSearchParams } from 'expo-router'
 import { getColorCode } from '@/utility/HelperUtils'
+import Toast from 'react-native-root-toast';
+import { router } from 'expo-router';
 
-const VarientButton = ({ text, index, onPress, isSelected }: any) => {
-  let color;
+function getVarientName (text: string) {
   if (text.includes('Small') || text.includes('Medium' || text.includes('Large'))) {
     const toBreak = text.includes('Small') ? 'Small'
                     : text.includes('Medium') ? 'Medium'
@@ -12,8 +13,12 @@ const VarientButton = ({ text, index, onPress, isSelected }: any) => {
                     : null
 
     const split = text.split(toBreak + " / ")
-    color = split[1].toLowerCase()
+    return split[1].toLowerCase()
   }
+}
+
+const VarientButton = ({ text, index, onPress, isSelected }: any) => {
+  let color = getVarientName(text);
 
   return (
     <TouchableOpacity onPress={() => onPress(text, index)} activeOpacity={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -85,12 +90,13 @@ const SelectQuantityComp = ({ onDecreasePress, quantity, onIncreasePress } : any
 }
 
 const ProductPage = () => {
-  const [selectedVarient, setSelectedVarient] = React.useState(0)
-  const [quantity, setQuantity] = React.useState(1)
-  const [imageLoading, setImageLoading] = React.useState(true)
-
   const params = useLocalSearchParams()
   const product = JSON.parse(String(params.details))
+
+  const [selectedVarient, setSelectedVarient] = React.useState(0)
+  const [selectedVarientName, setSelectedVarientName] = React.useState<string | undefined | null>(getVarientName(product.variants.edges[0].node.title))
+  const [quantity, setQuantity] = React.useState(1)
+  const [imageLoading, setImageLoading] = React.useState(true)
 
   const productImage = product.variants.edges[selectedVarient].node.image.url
 
@@ -99,8 +105,9 @@ const ProductPage = () => {
   const productPriceUnit = productPriceObj.currencyCode
   const productPriceText = "$" + " " + productPrice + " " + productPriceUnit
 
-  function handleOnVarientPress (item: any, index: number) {
+  function handleOnVarientPress (item: string, index: number) {
     setSelectedVarient(index)
+    setSelectedVarientName(getVarientName(item))
   }
 
   function handleOnQuantityIncreasePress () {
@@ -112,7 +119,15 @@ const ProductPage = () => {
   }
 
   function handleOnAddToCartPress () {
-    alert('Added to cart requires implementation')
+    router.back()
+
+    Toast.show(`Added to cart:  ${product.title}, Q - ${quantity}, Variant - ${selectedVarientName?.toUpperCase()}`, {
+      backgroundColor: 'rgba(1,1,1,0.95)',
+      textColor: 'white',
+      textStyle: {fontSize: 13, paddingHorizontal: 10, includeFontPadding: false},
+      containerStyle: {borderRadius: 100, paddingHorizontal: 8},
+      duration: Toast.durations.LONG,
+    });
   }
 
   return (
@@ -146,12 +161,13 @@ const ProductPage = () => {
         <Text style={{ marginTop: 4, paddingHorizontal: 16, fontWeight: '600' }}>{productPriceText}</Text>
 
         {/* variants */}
-        <View style={{ marginTop: 12, paddingHorizontal: 16, gap: 4, flexDirection: 'row' }}>
+        <View style={{ marginTop: 12, paddingHorizontal: 16, gap: 4, flexDirection: 'row', alignItems: 'center' }}>
           {
             product.variants.edges.map((item: any, index: any) => {
               return <VarientButton key={index} text={item.node.title} index={index} isSelected={selectedVarient == index} onPress={handleOnVarientPress} />
             })
           }
+          <Text style={{ paddingLeft: 16 }}> Varient {selectedVarient + 1} - {selectedVarientName?.toUpperCase()}</Text>
         </View>
 
         {/* description */}
