@@ -68,7 +68,9 @@ export default function Index() {
   }
 
   function onProductPress (product: any, index: number) {
-    router.navigate({pathname: "ProductPage", params: product.node})
+    router.navigate({pathname: "ProductPage", params: {
+      details: JSON.stringify(product.node)
+    }})
   }
 
   React.useEffect(() => {
