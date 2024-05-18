@@ -7,12 +7,12 @@ const HeaderLeft = ({ onBackPress }) => {
     <TouchableOpacity
       onPress={onBackPress}
       activeOpacity={0.8}
-      style={{ paddingLeft: 16, paddingRight: 8 }}
+      style={styles.headerLeftContainer}
     >
       <Image
         resizeMode='contain'
         source={require("@/assets/images/menu_icon.png")}
-        style={{ width: 22, height: 22, tintColor: 'black' }}
+        style={styles.headerLeftIcon}
       />
     </TouchableOpacity>
   )
@@ -22,17 +22,15 @@ const HeaderHome = ({ title, onBackPress }) => {
   return (
     <SafeAreaView>
       <View
-        style={{
-          height: 56, backgroundColor: 'white', flexDirection: "row",
-        }}
+        style={styles.headerContainer}
       >
-        <View style={{ position: "absolute", left: 0, height: "100%", justifyContent: "center" }}>
+        <View style={styles.headerLeftWrapper}>
           <HeaderLeft onBackPress={onBackPress} />
         </View>
 
-        <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
-          <Text style={{ fontSize: 18, fontWeight: "600" }}>{title}</Text>
-          <Text style={{ fontSize: 10, color: 'gray' }}>{"by Parth Bhanushali"}</Text>
+        <View style={styles.headerTitleContainer}>
+          <Text style={styles.headerTitle}>{title}</Text>
+          <Text style={styles.headerSubTitle}>{"by Parth Bhanushali"}</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -41,4 +39,26 @@ const HeaderHome = ({ title, onBackPress }) => {
 
 export default HeaderHome
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  headerContainer: {
+    height: 56, backgroundColor: 'white', flexDirection: "row",
+  },
+  headerLeftWrapper: {
+    position: "absolute", left: 0, height: "100%", justifyContent: "center"
+  },
+  headerTitleContainer: {
+    alignItems: "center", justifyContent: "center", flex: 1
+  },
+  headerSubTitle: {
+    fontSize: 10, color: 'gray'
+  },
+  headerTitle: {
+    fontSize: 18, fontWeight: "600"
+  },
+  headerLeftContainer: {
+    paddingLeft: 16, paddingRight: 8
+  },
+  headerLeftIcon: {
+    width: 22, height: 22, tintColor: 'black'
+  }
+})

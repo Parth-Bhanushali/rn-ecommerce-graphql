@@ -13,3 +13,15 @@ export function getColorCode (colorName) {
 
     return colorName
 }
+
+export function getVariantName(text) {
+  if (text.includes('Small') || text.includes('Medium' || text.includes('Large'))) {
+    const toBreak = text.includes('Small') ? 'Small'
+      : text.includes('Medium') ? 'Medium'
+        : text.includes('Large') ? 'Large'
+          : null
+
+    const split = text.split(toBreak + " / ")
+    return split[1].toLowerCase()
+  }
+}

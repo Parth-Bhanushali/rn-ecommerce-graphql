@@ -1,70 +1,18 @@
 import React from 'react';
-import {FlatList, Text, View, StyleSheet, Image, ActivityIndicator, Alert, TouchableOpacity} from 'react-native';
+import {FlatList, Text, View, StyleSheet, Image, ActivityIndicator, Alert} from 'react-native';
 import { useQuery } from '@apollo/client';
 import { COLLECTIONS_QUERY } from '../network/query'
 import { Colors } from '@/constants/Colors';
 import { useNavigation, router } from 'expo-router';
 import HeaderHome from '@/components/HeaderHome'
-
-const CollectionItem = ({ collection, onProductPress } : any) => {
-  const { node } = collection
-  const { title, description, handle } = node
-  const products = node.products.edges
-
-  const header = title
-
-  return (
-    <View style={{ marginBottom: 16 }}>
-      <Text style={{ fontSize: 24, fontWeight: '700', color: 'rgba(1,1,1,0.95)' }}>{header}</Text>
-      <Text style={{ color: 'rgba(1,1,1,0.6)' }}>{description}</Text>
-
-      <View style={{ marginVertical: 8 }} />
-
-      <View style={{ flexDirection: 'row', gap: 16, flex: 1 }}>
-        {
-          products.map((item: any, index: any) => {
-            const product = item.node
-
-            const productTitle = product.title
-            const productDescription = product.description
-            const productImage = product.images.edges[0].node.url
-            const productPriceObj = product.variants.edges[0].node.price
-            const productPrice = productPriceObj.amount
-            const productPriceUnit = productPriceObj.currencyCode
-            const productPriceText = "$" + " " + productPrice + " " + productPriceUnit
-
-            return (
-              <TouchableOpacity 
-                activeOpacity={0.75} 
-                key={index} 
-                onPress={() => onProductPress(item, index)}
-                style={{ flex: 1, gap: 8 }}
-              >
-                <Image 
-                  resizeMethod='resize'
-                  source={{ uri: productImage }}
-                  style={{ aspectRatio: 1, flex: 1 }}
-                />
-
-                <View>
-                  <Text style={{ fontSize: 13 }}>{productTitle}</Text>
-                  <Text style={{ fontSize: 15, fontWeight: '600' }}>{productPriceText}</Text>
-                </View>
-              </TouchableOpacity>
-            )
-          })
-        }
-      </View>
-    </View>
-  )
-}
+import CollectionItem from '@/components/CollectionItem'
 
 export default function Index() {
   const {data, loading, error} = useQuery(COLLECTIONS_QUERY);
   const navigation = useNavigation();
 
   function onMenuPress () {
-    Alert.alert('Alert', "This has not been implemented.")
+    Alert.alert('Alert', "Clicked on menu icon.")
   }
 
   function onProductPress (product: any, index: number) {
@@ -106,14 +54,15 @@ export default function Index() {
     <FlatList
       data={data.collections.edges}
       ListHeaderComponent={
-        <View style={{ gap: 16 }}>
+        // hero
+        <View style={styles.heroContainer}>
           <Image 
             resizeMode='cover'
             source={require('../assets/images/hero.jpg')}
-            style={{ width: '120%', backgroundColor: 'lightgray', height: 225, alignSelf: 'center' }}
+            style={styles.heroImage}
           />
 
-          <Text style={{ fontSize: 30, fontWeight: '300', marginBottom: 16 }}>Browse Collections</Text>
+          <Text style={styles.heroHeader}>Browse Collections</Text>
         </View>
       }
       renderItem={({ item, index }) => (
@@ -123,7 +72,7 @@ export default function Index() {
         />
       )}
       keyExtractor={(item, index) => index + ""}
-      contentContainerStyle={{ backgroundColor: 'white', flexGrow: 1, padding: 16, paddingTop: 0, }}
+      contentContainerStyle={styles.contentContainer}
     />
   )
 }
@@ -147,4 +96,16 @@ const styles = StyleSheet.create({
   errorText: {
     color: '#ce2727',
   },
+  heroContainer: {
+    gap: 16
+  },
+  heroImage: {
+    width: '120%', backgroundColor: 'lightgray', height: 225, alignSelf: 'center'
+  },
+  heroHeader: {
+    fontSize: 30, fontWeight: '300', marginBottom: 16
+  },
+  contentContainer: {
+    backgroundColor: 'white', flexGrow: 1, padding: 16, paddingTop: 0
+  }
 });
