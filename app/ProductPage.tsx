@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { useLocalSearchParams } from 'expo-router'
 import { getColorCode } from '@/utility/HelperUtils'
@@ -95,11 +95,12 @@ const SelectQuantityComp = ({ onDecreasePress, quantity, onIncreasePress } : any
 const ProductPage = () => {
   const [selectedVarient, setSelectedVarient] = React.useState(0)
   const [quantity, setQuantity] = React.useState(1)
+  const [imageLoading, setImageLoading] = React.useState(true)
 
   const params = useLocalSearchParams()
   const product = JSON.parse(String(params.details))
 
-  const productImage = product.images.edges[0].node.url
+  const productImage = product.variants.edges[selectedVarient].node.image.url
 
   const productPriceObj = product.variants.edges[0].node.price
   const productPrice = productPriceObj.amount
@@ -126,12 +127,25 @@ const ProductPage = () => {
     <View style={{ flex: 1, backgroundColor: 'white' }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: 'white' }}>
         {/* image */}
-        <Image
-          resizeMethod='resize'
-          resizeMode='stretch'
-          source={{ uri: productImage }}
-          style={{ width: '100%', aspectRatio: 1, backgroundColor: 'lightgray' }} 
-        />
+        <View style={{ width: '100%', justifyContent: 'center' }}>
+          <Image
+            onLoadStart={() => setImageLoading(true)}
+            onLoadEnd={() => setImageLoading(false)}
+            resizeMethod='resize'
+            resizeMode='stretch'
+            source={{ uri: productImage }}
+            style={{ width: '100%', aspectRatio: 1 }} 
+          />
+
+          {
+            imageLoading &&
+            <ActivityIndicator 
+              size={35}
+              color={'black'}
+              style={{ position: 'absolute', right: 0, left: 0 }}
+            />
+          }
+        </View>
 
         {/* title */}
         <Text style={{ marginTop: 16, paddingHorizontal: 16, fontSize: 24, fontWeight: '600' }}>{product.title}</Text>
