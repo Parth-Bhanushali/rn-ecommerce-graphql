@@ -19,23 +19,15 @@ const VarientButton = ({ text, index, onPress, isSelected }: any) => {
     <TouchableOpacity onPress={() => onPress(text, index)} activeOpacity={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
       {
         !!color ?
-          !isSelected ?
-          <View
-            style={{
-              backgroundColor: getColorCode(color), alignSelf: 'flex-start',
-              padding: 13, borderRadius: 50
-            }}
-          />
+          <View style={{ borderColor: !isSelected ? 'white' : getColorCode(color), borderRadius: 50, borderWidth: 1, padding: 3 }}>
+            <View
+              style={{
+                backgroundColor: getColorCode(color), alignSelf: 'flex-start',
+                padding: 12, borderRadius: 50
+              }}
+            />
+          </View>
           :
-            <View style={{ borderColor: getColorCode(color), borderRadius: 50, borderWidth: 1, padding: 3 }}>
-              <View
-                style={{
-                  backgroundColor: getColorCode(color), alignSelf: 'flex-start',
-                  padding: 12, borderRadius: 50
-                }}
-              />
-            </View>
-        :
         // <View
         //   style={{
         //     backgroundColor: !color ? 'rgba(1,1,1,0.1)' : getColorCode(color), alignSelf: 'flex-start',
@@ -154,7 +146,7 @@ const ProductPage = () => {
         <Text style={{ marginTop: 4, paddingHorizontal: 16, fontWeight: '600' }}>{productPriceText}</Text>
 
         {/* variants */}
-        <View style={{ marginTop: 12, paddingHorizontal: 16, gap: 12, flexDirection: 'row' }}>
+        <View style={{ marginTop: 12, paddingHorizontal: 16, gap: 4, flexDirection: 'row' }}>
           {
             product.variants.edges.map((item: any, index: any) => {
               return <VarientButton key={index} text={item.node.title} index={index} isSelected={selectedVarient == index} onPress={handleOnVarientPress} />
