@@ -80,32 +80,40 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: 'white',
-    justifyContent: 'center',
+    alignItems: "center",
+    backgroundColor: "white",
+    justifyContent: "center",
   },
   list: {
     flex: 1,
-    width: '100%',
+    width: "100%",
   },
   infoText: {
     fontSize: 20,
-    color: '#333',
-    textAlign: 'center',
+    color: "#333",
+    textAlign: "center",
   },
   errorText: {
-    color: '#ce2727',
+    color: "#ce2727",
   },
   heroContainer: {
-    gap: 16
+    gap: 16,
   },
   heroImage: {
-    width: '120%', backgroundColor: 'lightgray', height: 225, alignSelf: 'center'
+    width: "120%",
+    backgroundColor: "lightgray",
+    height: 225,
+    alignSelf: "center",
   },
   heroHeader: {
-    fontSize: 30, fontWeight: '300', marginBottom: 16
+    fontSize: 30,
+    fontWeight: "300",
+    marginBottom: 16,
   },
   contentContainer: {
-    backgroundColor: 'white', flexGrow: 1, padding: 16, paddingTop: 0
-  }
+    backgroundColor: "white",
+    flexGrow: 1,
+    padding: 16,
+    paddingTop: 0,
+  },
 });

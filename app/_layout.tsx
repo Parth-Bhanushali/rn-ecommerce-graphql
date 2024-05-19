@@ -3,6 +3,7 @@ import { ApolloProvider } from '@apollo/client';
 import client from '../network/client'
 import { RootSiblingParent } from 'react-native-root-siblings';
 
+// root of the application
 export default function RootLayout() {
   return (
     <RootSiblingParent>

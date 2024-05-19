@@ -41,24 +41,36 @@ export default HeaderHome
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: 56, backgroundColor: 'white', flexDirection: "row",
+    height: 56,
+    backgroundColor: "white",
+    flexDirection: "row",
   },
   headerLeftWrapper: {
-    position: "absolute", left: 0, height: "100%", justifyContent: "center"
+    position: "absolute",
+    left: 0,
+    height: "100%",
+    justifyContent: "center",
   },
   headerTitleContainer: {
-    alignItems: "center", justifyContent: "center", flex: 1
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
   },
   headerSubTitle: {
-    fontSize: 10, color: 'gray'
+    fontSize: 10,
+    color: "gray",
   },
   headerTitle: {
-    fontSize: 18, fontWeight: "600"
+    fontSize: 18,
+    fontWeight: "600",
   },
   headerLeftContainer: {
-    paddingLeft: 16, paddingRight: 8
+    paddingLeft: 16,
+    paddingRight: 8,
   },
   headerLeftIcon: {
-    width: 22, height: 22, tintColor: 'black'
-  }
-})
+    width: 22,
+    height: 22,
+    tintColor: "black",
+  },
+});

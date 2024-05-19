@@ -13,13 +13,13 @@ const ProductPage = () => {
   const product = JSON.parse(String(params.details))
 
   const [selectedVariant, setSelectedVariant] = React.useState(0)
-  const [selectedVariantName, setSelectedVariantName] = React.useState<string | undefined | null>(getVariantName(product.variants.edges[0].node.title))
+  const [selectedVariantName, setSelectedVariantName] = React.useState<string>(getVariantName(product.variants.edges[0].node.title))
   const [quantity, setQuantity] = React.useState(1)
   const [imageLoading, setImageLoading] = React.useState(true)
 
   const productImage = product.variants.edges[selectedVariant].node.image.url
 
-  const productPriceObj = product.variants.edges[0].node.price
+  const productPriceObj = product.variants.edges[selectedVariant].node.price
   const productPrice = productPriceObj.amount
   const productPriceUnit = productPriceObj.currencyCode
   const productPriceText = "$" + " " + productPrice + " " + productPriceUnit
@@ -52,7 +52,7 @@ const ProductPage = () => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
-        {/* image */}
+        {/* product image */}
         <View style={styles.imageContainer}>
           <Image
             onLoadStart={() => setImageLoading(true)}
@@ -73,13 +73,13 @@ const ProductPage = () => {
           }
         </View>
 
-        {/* title */}
+        {/* product title */}
         <Text style={styles.title}>{product.title}</Text>
         
-        {/* price */}
+        {/* product price */}
         <Text style={styles.price}>{productPriceText}</Text>
 
-        {/* variants */}
+        {/* product variants */}
         <View style={styles.variantsContainer}>
           {
             product.variants.edges.map((item: any, index: any) => {
@@ -89,7 +89,7 @@ const ProductPage = () => {
           <Text style={styles.selectedVariantText}> Variant {selectedVariant + 1} - {selectedVariantName?.toUpperCase()}</Text>
         </View>
 
-        {/* description */}
+        {/* product description */}
         <Text style={styles.description}>{product.description}</Text>
 
         {/* quantity */}
@@ -108,33 +108,50 @@ export default ProductPage
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, backgroundColor: 'white'
+    flex: 1,
+    backgroundColor: "white",
   },
   contentContainer: {
-    flexGrow: 1, backgroundColor: 'white'
+    flexGrow: 1,
+    backgroundColor: "white",
   },
   imageContainer: {
-    width: '100%', justifyContent: 'center'
+    width: "100%",
+    justifyContent: "center",
   },
   productImage: {
-    width: '100%', aspectRatio: 1 
+    width: "100%",
+    aspectRatio: 1,
   },
   imageLoadingIndicator: {
-    position: 'absolute', right: 0, left: 0
+    position: "absolute",
+    right: 0,
+    left: 0,
   },
   title: {
-    marginTop: 16, paddingHorizontal: 16, fontSize: 24, fontWeight: '600'
+    marginTop: 16,
+    paddingHorizontal: 16,
+    fontSize: 24,
+    fontWeight: "600",
   },
   price: {
-    marginTop: 4, paddingHorizontal: 16, fontWeight: '600'
+    marginTop: 4,
+    paddingHorizontal: 16,
+    fontWeight: "600",
   },
   variantsContainer: {
-    marginTop: 12, paddingHorizontal: 16, gap: 4, flexDirection: 'row', alignItems: 'center'
+    marginTop: 12,
+    paddingHorizontal: 16,
+    gap: 4,
+    flexDirection: "row",
+    alignItems: "center",
   },
   selectedVariantText: {
-    paddingLeft: 16
+    paddingLeft: 16,
   },
   description: {
-    marginTop: 16, paddingHorizontal: 16, color: 'gray'
-  }
-})
+    marginTop: 16,
+    paddingHorizontal: 16,
+    color: "gray",
+  },
+});

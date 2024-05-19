@@ -56,27 +56,35 @@ export default CollectionItem
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 16
+    marginBottom: 16,
   },
   headerText: {
-    fontSize: 24, fontWeight: '700', color: 'rgba(1,1,1,0.95)'
+    fontSize: 24,
+    fontWeight: "700",
+    color: "rgba(1,1,1,0.95)",
   },
   descriptionText: {
-    color: 'rgba(1,1,1,0.6)'
+    color: "rgba(1,1,1,0.6)",
   },
   productsContainer: {
-    flexDirection: 'row', gap: 16, flex: 1, marginTop: 16
+    flexDirection: "row",
+    gap: 16,
+    flex: 1,
+    marginTop: 16,
   },
   productItem: {
-    flex: 1, gap: 8
+    flex: 1,
+    gap: 8,
   },
   productImage: {
-    aspectRatio: 1, flex: 1
+    aspectRatio: 1,
+    flex: 1,
   },
   productTitleText: {
-    fontSize: 13
+    fontSize: 13,
   },
   productPriceText: {
-    fontSize: 15, fontWeight: '600'
-  }
-})
+    fontSize: 15,
+    fontWeight: "600",
+  },
+});

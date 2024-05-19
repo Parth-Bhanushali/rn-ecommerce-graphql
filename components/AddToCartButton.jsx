@@ -17,9 +17,18 @@ export default AddToCartButton
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'rgba(1,1,1,0.9)', padding: 16, marginHorizontal: 16, marginVertical: 16, borderRadius: 6
+    backgroundColor: "rgba(1,1,1,0.9)",
+    padding: 16,
+    marginHorizontal: 16,
+    marginVertical: 16,
+    borderRadius: 6,
   },
   buttonText: {
-    includeFontPadding: false, fontSize: 16, color: 'white', fontWeight: '700', textAlign: 'center', fontFamily: 'monospace'
-  }
-})
+    includeFontPadding: false,
+    fontSize: 16,
+    color: "white",
+    fontWeight: "700",
+    textAlign: "center",
+    fontFamily: "monospace",
+  },
+});

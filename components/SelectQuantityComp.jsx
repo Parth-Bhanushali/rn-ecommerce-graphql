@@ -29,23 +29,34 @@ export default SelectQuantityComp
 
 const styles = StyleSheet.create({
   label: {
-    marginTop: 12, paddingHorizontal: 16
+    marginTop: 12,
+    paddingHorizontal: 16,
   },
   quantityBoxContainer: {
-    marginHorizontal: 16, marginTop: 12,
-    borderWidth: 1, borderColor: 'lightgray', borderRadius: 4,
-    alignSelf: 'flex-start', flexDirection: 'row'
+    marginHorizontal: 16,
+    marginTop: 12,
+    borderWidth: 1,
+    borderColor: "lightgray",
+    borderRadius: 4,
+    alignSelf: "flex-start",
+    flexDirection: "row",
   },
   button: {
-    width: 45, height: 45, alignItems: 'center', justifyContent: 'center'
+    width: 45,
+    height: 45,
+    alignItems: "center",
+    justifyContent: "center",
   },
   minusButtonText: {
-    fontSize: 30, includeFontPadding: false
+    fontSize: 30,
+    includeFontPadding: false,
   },
   quantityText: {
-    fontSize: 18, includeFontPadding: false
+    fontSize: 18,
+    includeFontPadding: false,
   },
   plusButtonText: {
-    fontSize: 20, includeFontPadding: false
-  }
-})
+    fontSize: 20,
+    includeFontPadding: false,
+  },
+});

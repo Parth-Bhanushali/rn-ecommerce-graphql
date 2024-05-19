@@ -28,6 +28,7 @@ export default VariantButton
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: 'center', justifyContent: 'center'
-  }
-})
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
