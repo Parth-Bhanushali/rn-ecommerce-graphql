@@ -13,7 +13,7 @@ export default function RootLayout() {
           <Stack.Screen name="index" />
           
           {/* product page */}
-          <Stack.Screen name="ProductPage" options={{ headerTitle: "Product details" }} />
+          <Stack.Screen name="ProductPage" options={{ headerTitle: "Product details", headerBackTitle: "Home" }} />
         </Stack>
       </ApolloProvider>
     </RootSiblingParent>
